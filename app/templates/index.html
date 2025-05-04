@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Live-Cart 🛒</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>🛍️ Shopping Mart</h1>
+
+    {% if products %}
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image if product.image else '/static/default-image.jpg' }}" alt="{{ product.title }}">
+            <h3>{{ product.title[:50] if product.title else "Untitled" }}{% if product.title and product.title|length >
+                50 %}...{% endif %}</h3>
+            <p>Price: ₹{{ product.price if product.price else "N/A" }}</p>
+            <button onclick="addToCart('{{ product.id }}')"> ➕ Add to Cart</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No products available at the moment. Please check back later.</p>
+    {% endif %}
+
+    <script>
+        function addToCart(productId) {
+            alert("🛒 Product " + productId + " added to cart!");
+        }
+    </script>
+</body>
+
+</html>
